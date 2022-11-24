@@ -1,0 +1,27 @@
+
+*{
+    background-color: rgb(169, 205, 226);
+
+@font-face {
+    font-family: baskerville;
+    src: url("font/Baskerville/baskervi.ttf");
+}
+
+p{ 
+    background-color: yellowgreen;
+    color:green;
+    font-size: 30px;
+}
+td{
+    background-color: rgb(126, 36, 185);
+    width: 50px;
+    height: 50px;
+}
+thead{
+    background-color: rgb(46, 211, 5);
+    width: 50px;
+    height: 50px;
+    text-align: center;
+}
+.fondoazul {background-color: blue;}
+.textocentrado {text-align: center;}
