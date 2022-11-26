@@ -1,6 +1,6 @@
 <diagram program="umletino" version="15.0.0"><zoom_level>11</zoom_level><element><id>UMLClass</id><coordinates><x>286</x><y>33</y><w>231</w><h>297</h></coordinates><panel_attributes>cliente
 --
-ClienteId : INT(10)
+*ClienteId : INT(10)
 ClienteApellido: VARCHAR(50)
 ClienteNombre: VARCHAR(50)
 ClienteDocumento: INT(10)
@@ -19,8 +19,8 @@ Primary key: ClienteId
 Foreign key: DptoId
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>649</x><y>33</y><w>374</w><h>451</h></coordinates><panel_attributes>Envio
 --
-EnvioCodigo: CHAR(6)
-ClienteId : INT(10)
+*EnvioCodigo: CHAR(6)
+*ClienteId : INT(10)
 EnvioDestinatario: VARCHAR(100)
 EnvioCodigoPostal: INT(10)
 EnvioCalle: TEXT
@@ -38,17 +38,17 @@ EnvioEstado: ENUM('Pendiente', 'En reparto', 'Entregado')
 --
 
 Primary key: EnvioCodigo
+Primary key: ClienteId
 
 --
 
-Foreign key: ClienteId
 Foreign key: DptoId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>429</x><y>583</y><w>231</w><h>264</h></coordinates><panel_attributes>Usuario
 --
-UsuarioId : INT(10)
-UsuarioNombreApellido: 
+*UsuarioId : INT(10)
+RolId : INT(10)
+UsuarioNombreApellido: VARCHAR(100)
 UsuarioUsuario: VARCHAR(50)
 UsuarioClave: VARCHAR(50)
-RolId : INT(10)
 UsuarioEstado: BOOL
 
 --
@@ -59,26 +59,27 @@ Primary key: UsuarioId
 
 Foreign key: RolId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>132</x><y>583</y><w>231</w><h>154</h></coordinates><panel_attributes>Rol
 --
-RolId : INT(10)
+*RolId : INT(10)
 RolNombre: VARCHAR(50)
 
 --
 
 Primary key: RolId</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>352</x><y>682</y><w>99</w><h>33</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>70;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>506</x><y>132</y><w>165</w><h>33</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>130;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>649</x><y>693</y><w>88</w><h>33</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>715</x><y>583</y><w>440</w><h>253</h></coordinates><panel_attributes>HistoricoEnvio
 --
-HistEnvioFecha: DATETIME
+*EnvioCodigo: CHAR(6)
+*HistEnvioFecha: DATETIME
 HistEnvioEstado: ENUM('Pendiente', 'En reparto', 'Entregado')
 UsuarioId : INT(10)
-EnvioCodigo: CHAR(6)
 
 --
 
 Primary key: HistEnvioFecha
+Primary key: EnvioCodigo
 
 --
 
 Foreign key: UsuarioId
-Foreign key: EnvioCodigo</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>814</x><y>473</y><w>33</w><h>132</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>286</x><y>374</y><w>231</w><h>165</h></coordinates><panel_attributes>departamento
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>814</x><y>473</y><w>33</w><h>132</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>286</x><y>374</y><w>231</w><h>165</h></coordinates><panel_attributes>departamento
 --
 DptoId : INT(10)
 DptoNombre: VARCHAR(50)
