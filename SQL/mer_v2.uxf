@@ -29,11 +29,9 @@ EnvioApto: VARCHAR(10)
 EnvioCiudad: VARCHAR(50)
 DptoId : INT(10)
 EnvioTelefono: INT(9)
+EnvioFecha: DATE
+EnvioHora: TEXT
 EnvioComentarios: TEXT
-EnvioFechaRecepcion: DATETIME 
-EnvioFechaDespacho: DATETIME
-EnvioFechaDestino: DATETIME
-EnvioEstado: ENUM('Pendiente', 'En reparto', 'Entregado')
 
 --
 
