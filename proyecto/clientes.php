@@ -1,5 +1,28 @@
 <?php
 
+$conexion = new PDO("mysql:host=localhost:3306;dbname=proyecto_correo",'root', '');
+$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$sql = "SELECT * FROM cliente"; 
+/*en esta consulta me traigo los datos que necesito, asi me estoy trayendo toda la tabla
+pero puedo usar por ejemplo
+$sql = "SELECT clienteNombre,clienteDocumento FROM cliente";
+
+otra forma es con un inner join y traigo campos de dos tablas
+
+*/
+
+$cliente = $conexion->prepare($sql);
+$cliente->execute(array());
+$respuesta = $cliente->fetchALL(PDO::FETCH_ASSOC);
+
+print_r($respuesta);
+
+?>
+
+
+
+<?php
+
 /*   
     `ClienteId` int(10) NOT NULL AUTO_INCREMENT,
     `ClienteApellido` varchar(50) NOT NULL,

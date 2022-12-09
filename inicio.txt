@@ -1,1 +1,53 @@
 Primer prueba
+
+
+
+
+
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo center">Clientes</a>
+            </div>
+        </nav>
+        <div class="container">
+            <h1 class="center"> CLIENTES</h1>
+            <form class="col s12" action="calculadora.php" method="POST">
+                <div class="row">
+                    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Ingresar</a>
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Apellidos</th>
+                                <th>Nombre</th>
+                                <th>Documento</th>
+                                <th>Telefono</th>
+                                <th>Direccion</th>
+                                <th>Ciudad</th>
+                                <th>Departamento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+<?php
+							foreach($respuesta as $cliente){
+?>
+								<tr>
+									<td><?=$cliente['ClienteId']?></td>
+									<td><?=$cliente['ClienteApellido']?></td>
+									<td><?=$cliente['ClienteNombre']?></td>
+									<td><?=$cliente['ClienteDocumento']?></td>
+                                    <td><?=$cliente['ClienteTelefono']?></td>
+                                    <td><?=$cliente['ClienteDireccion']?></td>
+                                    <td><?=$cliente['ClienteCiudad']?></td>
+                                    <td><?=$cliente['DptoId']?></td>
+								</tr>
+<?php
+							}
+?>
+
+                    </tbody>    
+				</table>
+			</div>
+		</form>
