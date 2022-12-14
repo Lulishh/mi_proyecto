@@ -21,7 +21,7 @@
                     </div>
                 </div>    
                 <div class="card-action">
-                    <a href="index.php?r=estado_envio">This is a link</a>
+                    <a href="index.php?r=actualizo_envio">This is a link</a>
                 </div>
             </div>
             

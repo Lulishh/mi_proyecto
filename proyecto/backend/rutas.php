@@ -8,8 +8,8 @@
 		include("vistas\cliente_vista.php");
 	}elseif($ruta == "tracking"){
 		include("vistas/tracking_vista.php");
-	}elseif($ruta == "estado_envio"){
-		include("vistas/estado_envio_vista.php");
+	}elseif($ruta == "actualizo_envio"){
+		include("vistas/actualizo_envio.php");
 	}else{
 		include("vistas/inicio.php");
 	}	

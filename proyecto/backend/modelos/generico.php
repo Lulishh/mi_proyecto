@@ -3,13 +3,13 @@
 
 	class generico{
 
-		protected $id;
+		/*protected $id;
 
 
 		public function traerId(){
 			return $this->id;
 		}
-
+*/
 		public function extraerDatos($array, $clave){
 
 			if(isset($array[$clave])){
@@ -42,7 +42,7 @@
 			$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);	
 			
 			$mysqlPrepare = $conexion->prepare($sql);		
-			$mysqlPrepare->execute($arrayDatos);	
+			$mysqlPrepare->execute($arrayDatos);
 			$respuesta = $mysqlPrepare->fetchAll(PDO::FETCH_ASSOC);
 
 			return $respuesta;

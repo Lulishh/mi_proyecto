@@ -11,7 +11,6 @@
 ?>
 
 
-
 <!DOCTYPE html>
   <html>
     <head>
@@ -26,13 +25,16 @@
 
     <body>
         <ul id="dropdown1" class="dropdown-content">
-            <li><a href="index.php?r=cliente">Clientes</a></li>
-            <li><a href="#!">two</a></li>
+            <li><a href="index.php?r=envio">Ingresar envio</a></li>
             <li class="divider"></li>
-            <li><a href="#!">three</a></li>
+            <li><a href="index.php?r=estado_envio">Actualizar envio</a></li>
+            <li class="divider"></li>
+            <li><a href="index.php?r=tracking">Tracking</a></li>
+            <li class="divider"></li>
+            <li><a href="index.php?r=cliente">Clientes</a></li>
         </ul>
         <nav>
-            <div class="nav-wrapper #0d47a1 blue darken-4">
+            <div class="nav-wrapper #02243D blue darken-4">
                 <ul class="left hide-on-med-and-down">  
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a><li>
                     <li><a href="index.php">Inicio</a><li>

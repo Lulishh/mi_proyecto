@@ -47,15 +47,12 @@ print_r($respuesta);
         
     public function constructor($arrayDatos){
 
-            $this->$ClienteId          = $arrayDatos['ClienteId'];   
-            $this->$ClienteApellido    = $arrayDatos['ClienteApellido'];
-            $this->$ClienteNombre      = $arrayDatos['ClienteNombre'];
-            $this->$ClienteDocumento   = $arrayDatos['ClienteDocumento'];
-            $this->$ClienteTelefono    = $arrayDatos['ClienteTelefono'];
-            $this->$ClienteDireccion   = $arrayDatos['ClienteDireccion'];
-            $this->$ClienteCiudad      = $arrayDatos['ClienteCiudad'];
-            $this->$DptoId             = $arrayDatos['DptoId'];
-            $this->$ClienteEstado      = $arrayDatos['ClienteEstado'];
+            $this->ClienteId          = $arrayDatos['ClienteId'];   
+            $this->ClienteApellido    = $arrayDatos['ClienteApellido'];
+            $this->ClienteNombre      = $arrayDatos['ClienteNombre'];
+            $this->ClienteDocumento   = $arrayDatos['ClienteDocumento'];
+            $this->ClienteTelefono    = $arrayDatos['ClienteTelefono'];
+            $this->ClienteEstado      = $arrayDatos['ClienteEstado'];
     }
 
 

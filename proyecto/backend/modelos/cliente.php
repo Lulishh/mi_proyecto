@@ -6,35 +6,58 @@ require_once("modelos/generico.php");
 class cliente extends generico {
 
 
-	protected $ClienteNombre;
-
+	protected $clienteId;   
 	protected $ClienteApellido;
-
-
-	public function traerNombre(){
-		return $this->nombre;
-	}
-
-	public function traerDescripcion(){
-		return $this->descripcion;
-	}
-
-	public function constructor($arrayDatos = array()){
-
-		$this->id 				= $this->extraerDatos($arrayDatos,'id');
-		$this->nombre 			= $this->extraerDatos($arrayDatos,'nombre');
-		$this->descripcion		= $this->extraerDatos($arrayDatos,'descripcion');
+	protected $ClienteNombre;
+	protected $ClienteDocumento;
+	protected $ClienteTelefono;
+	//indica si esta activo o dado de baja el cliente
+	protected $ClienteEstado;
 	
+	public function traerClienteId(){
+		return $this->clienteId;
+	}
+
+	public function traerClienteApellido(){
+		return $this->ClienteApellido;
+	}
+
+	public function traerfechaClienteNombre(){
+		return $this->ClienteNombre;
+	}
+
+	public function traerClienteDocumento(){
+		return $this->ClienteDocumento;
+	}
+
+	public function traerClienteTelefono(){
+		return $this->ClienteTelefono;
+	}
+
+    public function constructor($arrayDatos){
+
+		$this->clienteId          = $arrayDatos['clienteId'];   
+		$this->clienteApellido    = $arrayDatos['clienteApellido'];
+		$this->clienteNombre      = $arrayDatos['clienteNombre'];
+		$this->clienteDocumento   = $arrayDatos['clienteDocumento'];
+		$this->clienteTelefono    = $arrayDatos['clienteTelefono'];
+		$this->clienteEstado      = $arrayDatos['clienteEstado'];
 	}
 
 	public function ingresar(){
 
-		$sqlInsert = "INSERT generos SET
-						nombre 			= :nombre,
-						descripcion		= :descripcion";	
+		$sqlInsert = "INSERT cliente SET
+						clienteId 			= :clienteId,
+						clienteApellido		= :clienteApellido,
+						clienteNombre		= :clienteNombre,
+						clienteDocumento 	= :clienteDocumento,
+						clienteTelefono		= :clienteTelefono";
 		$arraySql = array(
-						"nombre" 			=> $this->nombre,
-						"descripcion" 		=> $this->descripcion
+						"clienteId" 			=> $this->clienteId,
+						"clienteApellido" 		=> $this->clienteApellido,
+						"clienteNombre" 		=> $this->clienteNombre,
+						"clienteDocumento" 		=> $this->clienteDocumento,
+						"clienteTelefono" 		=> $this->clienteTelefono
 					);
 			
 		$retorno = $this->inputarCambio($sqlInsert, $arraySql);
@@ -44,14 +67,18 @@ class cliente extends generico {
 
 	public function editar(){
 
-		$sqlInsert = "UPDATE generos SET
-						nombre 			= :nombre,
-						descripcion	= :descripcion
-						WHERE id = :id";	
+		$sqlInsert = "UPDATE cliente SET
+						clienteId 			= :clienteId,
+						clienteApellido		= :clienteApellido,
+						clienteNombre		= :clienteNombre,
+						clienteDocumento 	= :clienteDocumento,
+						clienteTelefono		= :clienteTelefono";	
 		$arraySql = array(
-						"nombre" 			=> $this->nombre,
-						"descripcion" 		=> $this->descripcion,
-						"id" 				=> $this->id,
+						"clienteId" 			=> $this->clienteId,
+						"clienteApellido" 		=> $this->clienteApellido,
+						"clienteNombre" 		=> $this->clienteNombre,
+						"clienteDocumento" 		=> $this->clienteDocumento,
+						"clienteTelefono" 		=> $this->clienteTelefono
 					);
 		
 		$retorno = $this->inputarCambio($sqlInsert, $arraySql);
@@ -61,10 +88,10 @@ class cliente extends generico {
 
 	public function borrar(){
 
-		$sqlInsert = "UPDATE generos SET estado = 0 WHERE id = :id";	
+		$sqlInsert = "UPDATE cliente SET estado = 0 WHERE clienteId = :clienteId";	
 		$mysqlPrepare = $conexion->prepare($sqlInsert);
 		$arraySql = array(
-						"id" => $this->id,
+						"clienteId" => $this->clienteId,
 					);
 	
 		$retorno = $this->inputarCambio($sqlInsert, $arraySql);
@@ -78,10 +105,10 @@ class cliente extends generico {
 			$arrayFiltros['totalRegistro'] : el numero total de registro que vamos a traer
 		*/
 
-		$conexion = new PDO("mysql:host=localhost:3306;dbname=curso_2172", 'root', '');                                
+		$conexion = new PDO("mysql:host=localhost:3306;dbname=proyecto_correo", 'root', '');                                
 		$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);	
 		
-		$sql = "SELECT * FROM generos";
+		$sql = "SELECT * FROM cliente";
 
 		if(isset($arrayFiltros['busqueda']) && $arrayFiltros['busqueda'] != "" ){
 			$sql .= " AND (nombre LIKE ('%".$arrayFiltros['busqueda']."%') ";
@@ -106,7 +133,7 @@ class cliente extends generico {
 			$arrayFiltros['totalRegistro'] : el numero total de registro que vamos a traer
 		*/
 
-		$sql = "SELECT count(id) as total FROM generos 
+		$sql = "SELECT count(id) as total FROM cliente 
 					WHERE estado = 1";
 
 		if(isset($arrayFiltros['busqueda']) && $arrayFiltros['busqueda'] != "" ){
@@ -125,36 +152,7 @@ class cliente extends generico {
 
 	}
 
-	public function cargar($idAutor){
-
-
-		$sql = "SELECT * FROM generos WHERE id = :id";
-		$arrayDatos = array();
-		$arrayDatos['id'] = $idAutor;
-
-		$respuesta = $this->cargarDatos($sql, $arrayDatos);
-
-		foreach($respuesta as $autor){
-
-			$this->id 				= $autor['id'];
-			$this->nombre 			= $autor['nombre'];
-			$this->descripcion		= $autor['descripcion'];
-
-		}
-
 	}
-
-
-}
-
-
-
-
-
-
-
-
-
 
 ?>
 
