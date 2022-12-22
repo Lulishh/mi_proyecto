@@ -163,9 +163,9 @@ class envio extends generico {
                         EnvioHora 	        = :EnvioHora,
                         EnvioComentarios	= :EnvioComentarios,
                         EnvioEstadoPaquete  = :EnvioEstadoPaquete
-                        WHERE EnvioCodigo = :EnvioCodigo";	
+                        WHERE EnvioId = :EnvioId";	
         $arraySql = array(
-                        "EnvioCodigo" 		        => $this->EnvioCodigo,         
+                        "EnvioId" 		            => $this->EnvioId,   
                         "EnvioDestinatario" 		=> $this->EnvioDestinatario,
                         "EnvioCodigoPostal" 		=> $this->EnvioCodigoPostal,
                         "EnvioCalle" 		        => $this->EnvioCalle,
@@ -221,9 +221,9 @@ class envio extends generico {
                         WHERE EnvioEstado = 1";
         
         if(isset($arrayFiltros['busqueda']) && $arrayFiltros['busqueda'] != "" ){
-            $sql .= " AND (ClienteApellido LIKE ('%".$arrayFiltros['busqueda']."%')";
-            $sql .= " OR ClienteNombre LIKE ('%".$arrayFiltros['busqueda']."%')";
-            $sql .= " OR ClienteDocumento LIKE ('%".$arrayFiltros['busqueda']."%'))";
+            $sql .= " AND (EnvioCodigo LIKE ('%".$arrayFiltros['busqueda']."%')";
+            $sql .= " OR ClienteApellido LIKE ('%".$arrayFiltros['busqueda']."%')";
+            $sql .= " OR ClienteNombre LIKE ('%".$arrayFiltros['busqueda']."%'))";
         }
         
         if(isset($arrayFiltros['totalRegistro']) && $arrayFiltros['totalRegistro']>0){
@@ -246,9 +246,9 @@ class envio extends generico {
                 
         
         if(isset($arrayFiltros['busqueda']) && $arrayFiltros['busqueda'] != "" ){
-            $sql .= " AND (ClienteApellido LIKE ('%".$arrayFiltros['busqueda']."%')";
-            $sql .= " OR ClienteNombre LIKE ('%".$arrayFiltros['busqueda']."%')";
-            $sql .= " OR ClienteDocumento LIKE ('%".$arrayFiltros['busqueda']."%'))";
+            $sql .= " AND (EnvioCodigo LIKE ('%".$arrayFiltros['busqueda']."%')";
+            $sql .= " OR ClienteApellido LIKE ('%".$arrayFiltros['busqueda']."%')";
+            $sql .= " OR ClienteNombre LIKE ('%".$arrayFiltros['busqueda']."%'))";
         }
         
         $arrayDatos = array();
@@ -274,7 +274,7 @@ class envio extends generico {
         
         foreach($respuesta as $envio){
         
-            $this->EnvioId 			= $envio['EnvioId'];
+            $this->EnvioId 			    = $envio['EnvioId'];
             $this->ClienteApellido		= $envio['ClienteApellido'];
             $this->ClienteNombre		= $envio['ClienteNombre'];
             $this->ClienteDocumento		= $envio['ClienteDocumento'];

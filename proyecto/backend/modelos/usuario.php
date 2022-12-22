@@ -4,14 +4,14 @@ require_once("modelos/generico.php");
 
 class usuario extends generico {
 
-	protected $nombre;
+	protected $Usuario;
 
-	protected $clave;
+	protected $UsuarioClave;
 
 	protected $RolNombre;
 
-	public function traerNombre(){
-		return $this->nombre;
+	public function traerUsuario(){
+		return $this->Usuario;
 	}
 
 	public function traerRolNombre(){
@@ -20,26 +20,26 @@ class usuario extends generico {
 
 	public function constructor($arrayDatos = array()){
 
-		$this->UsuarioId 				= $this->extraerDatos($arrayDatos,'id');
-		$this->UsuarioUsuario 			= $this->extraerDatos($arrayDatos,'nombre');
-		$this->RolNombre		= $this->extraerDatos($arrayDatos,'RolNombre');
+		$this->UsuarioId 			= $this->extraerDatos($arrayDatos,'UsuarioId');
+		$this->Usuario 				= $this->extraerDatos($arrayDatos,'Usuario');
+		$this->RolNombre			= $this->extraerDatos($arrayDatos,'RolNombre');
 	
 	}
 
-	public function login($usuario, $clave){
+	public function login($Usuario, $UsuarioClave){
 
 
 		$sql = "SELECT * FROM usuario 
-					WHERE nombre = :nombre AND clave = :clave";
+					WHERE Usuario = :Usuario AND UsuarioClave = :UsuarioClave";
 		$arrayDatos = array();
-		$arrayDatos['nombre'] 	= $usuario;
-		$arrayDatos['clave'] 	= md5($clave);
+		$arrayDatos['Usuario'] 	= $Usuario;
+		$arrayDatos['UsuarioClave'] 	= md5($UsuarioClave);
 		$respuesta = $this->cargarDatos($sql, $arrayDatos);
 
-		foreach($respuesta as $usuario){
+		foreach($respuesta as $Usuario){
 
 			@session_start();
-			$_SESSION['nombre'] = $usuario['nombre'];
+			$_SESSION['Usuario'] = $Usuario['Usuario'];
 			return "OK";
 
 		}

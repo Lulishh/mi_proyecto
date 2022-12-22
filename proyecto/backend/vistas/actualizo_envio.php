@@ -2,7 +2,7 @@
 	
 	$ruta 			= isset($_GET['r'])?$_GET['r']:"";
 	$accion 		= isset($_GET['a'])?$_GET['a']:"";
-	$EnvioCodigo 	= isset($_GET['EnvioCodigo'])?$_GET['EnvioCodigo']:"";
+	$EnvioId 		= isset($_GET['EnvioId'])?$_GET['EnvioId']:"";
 	$pagina 		= isset($_GET['pagina'])?$_GET['pagina']:"1";
 	$busqueda 		= isset($_GET['busqueda'])?$_GET['busqueda']:"";
 
@@ -34,14 +34,14 @@
 		//print_r($respuesta);
 	}
 	
-	if($accion == "editar" && $EnvioCodigo != ""){
+	if($accion == "editar" && $EnvioId != ""){
 	
-		$objEnvio->cargar($EnvioCodigo);
+		$objEnvio->cargar($EnvioId);
 	
 	}
-	if($accion == "borrar" && $EnvioCodigo != ""){
+	if($accion == "borrar" && $EnvioId != ""){
 	
-		$objEnvio->cargar($EnvioCodigo);
+		$objEnvio->cargar($EnvioId);
 	
 	}
 	
@@ -77,7 +77,7 @@
 	$listaEnvio = $objEnvio->listar($arrayFiltros);
 	
 
-	if($accion == "editar" && $EnvioCodigo!= ""){
+	if($accion == "editar" && $EnvioId!= ""){
 ?>
 
 	<div class="row"> 
@@ -147,6 +147,12 @@
 									<label for="EnvioEstadoPaquete">Estado paquete</label>
 								</div>
 							</div>
+							<div class="row">
+								<input type="hidden" name="EnvioId" value="<?=$objEnvio->traerEnvioId()?>">
+								<button class="btn waves-effect waves-light right" type="submit" name="action" value="editar">Guardar
+									<i class="material-icons right">save</i>
+							</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -156,7 +162,7 @@
 	}
 ?>
 <?php
-	if($accion == "borrar" && $EnvioCodigo != ""){
+	if($accion == "borrar" && $EnvioId != ""){
 ?>
 	<div class="row"> 
 		<div class="col s2"></div>
@@ -173,7 +179,7 @@
 							</div>					
 						</div>			
 						<div class="row">
-							<input type="hidden" name="EnvioCodigo" value="<?=$objEnvio->traerEnvioCodigo()?>">
+							<input type="hidden" name="EnvioId" value="<?=$objEnvio->traerEnvioId()?>">
 							<div class="input-field col s2">
 								<button class="btn waves-effect waves-light" type="submit" name="action" value="cancelar">Cancelar
 									<i class="material-icons right">cancel</i>
