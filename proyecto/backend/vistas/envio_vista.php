@@ -1,140 +1,124 @@
+<?php	
+	$ruta 		= isset($_GET['r'])?$_GET['r']:"";
+	$accion 	= isset($_GET['a'])?$_GET['a']:"";
+
+	require_once("modelos/envio.php");
+
+	$objEnvio = new envio();
 
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Centrando divs</title>
-  <link rel="stylesheet" href="./estilos.css" />
-  <!-- Cambia el enlace del archivo CSS aquí -->
-  <link rel="stylesheet" href="" />
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0px;
-      padding: 0px;
-    }
+	if(isset($_POST['action']) && $_POST['action'] == "ingresar"){
 
-    #contenedorPadre {
-        position: relative;
-    }
+		$arrayDatos = $_POST;
+		$objEnvio->constructor($arrayDatos);
+		$respuesta = $objEnvio->ingresar();
+	
+		//print_r($respuesta);
+	}
+?>	
 
-    #contenedorHijo {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, 10%);
-    }
-    
-  </style>
-</head>
-
-<body>
-    <div class="row col s12" style="background-color: #C1D3DC; color: #02243D;">
-    <h4>DATOS CLIENTE</h4>
-        
-    </div>
-    <div  class="row col s12">
-        <div class="col s1"></div>
-        <div>
-            <form class="col s4 center-align">
-                <div class="row">
-                    <div class="input-field col s6">
-                    <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                    <label for="first_name">First Name</label>
-                    </div>
-                    <div class="input-field col s6">
-                    <input id="last_name" type="text" class="validate">
-                    <label for="last_name">Last Name</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                    <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-                    <label for="disabled">Disabled</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                    <input id="password" type="password" class="validate">
-                    <label for="password">Password</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                    <input id="email" type="email" class="validate">
-                    <label for="email">Email</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                    This is an inline input field:
-                    <div class="input-field inline">
-                        <input id="email_inline" type="email" class="validate">
-                        <label for="email_inline">Email</label>
-                        <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                    </div>
-                    </div>
-                </div>
-                <div class="row col s12 center-align">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                        <i class="material-icons right">Confirmar datos</i>
-                    </button>
-                    <a class="waves-effect waves-light btn">button</a>
-                </div>
-            </form>
-        </div>
-        <div class="col s1"></div>
-        <div>
-            <form class="col s4 center-align">
-                <div class="row">
-                    <div class="input-field col s6">
-                    <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                    <label for="first_name">First Name</label>
-                    </div>
-                    <div class="input-field col s6">
-                    <input id="last_name" type="text" class="validate">
-                    <label for="last_name">Last Name</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                    <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-                    <label for="disabled">Disabled</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                    <input id="password" type="password" class="validate">
-                    <label for="password">Password</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                    <input id="email" type="email" class="validate">
-                    <label for="email">Email</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                    This is an inline input field:
-                    <div class="input-field inline">
-                        <input id="email_inline" type="email" class="validate">
-                        <label for="email_inline">Email</label>
-                        <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                    </div>
-                    </div>
-                </div>
-                <div class="row col s2 center-align">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                        <i class="material-icons right">Confirmar datos</i>
-                    </button>
-                    <a class="waves-effect waves-light btn">button</a>
-                </div>
-            </form>
-        </div>
-        <div class="col s1"></div>
-    </div>
+<?php 
+	if(isset($respuesta) && $respuesta['codigo'] == "Error"  ){
+?>
+		<div class="#e57373 red lighten-2 center-align" style="height:40px">
+			<h4>Error al realizar la operacion</h4>
+		</div>
+<?php
+	}elseif(isset($respuesta) && $respuesta['codigo'] == "Ok"){	
+?>
+		<div class="#4db6ac teal lighten-2 center-align" style="height:40px">
+			<h4>Se realizo la operacion correctamente</h4>
+		</div>
+<?php 
+	}
+?>
 
 
-</body>
+<div class="row"> 
+	<div class="col s2"></div>
+	<div class="col s8 center-align">
+		<h3>DATOS PARA EL ENVIO</h3>
+	</div>
+	<div class="col s2"></div>
+	</div>
+<div class="row"> 
+		<div class="col s2"></div>
+		<div class="col s8">
+			<form action="index.php?r=<?=$ruta?>" method="POST" class="col s12">
+							<div class="modal-content">
+								<div class="row">
+									<div class="input-field col s4">
+										<input id="ClienteId" type="number" class="validate" name="ClienteId">
+										<label for="ClienteId">Id cliente</label>
+									</div>
+									<div class="input-field col s8">
+										<input id="EnvioCodigo" type="text" class="validate" name="EnvioCodigo">
+										<label for="EnvioCodigo">Codigo de envio</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s12">
+										<input id="EnvioDestinatario" type="text" class="validate" name="EnvioDestinatario">
+										<label for="EnvioDestinatario">Nombre destinatario</label>
+									</div>
+								</div>
+								<div class="row">	
+									<div class="input-field col s8">
+										<input id="EnvioCalle" type="text" class="validate" name="EnvioCalle">
+										<label for="EnvioCalle">Direccion</label>
+									</div>
+									<div class="input-field col s4">
+										<input id="EnvioTelefono" type="number" class="validate" name="EnvioTelefono">
+										<label for="EnvioTelefono">Telefono</label>
+									</div>
+								</div>	
+								<div class="row">
+									<div class="input-field col s4">
+										<input id="EnvioNroPuerta" type="text" class="validate" name="EnvioNroPuerta">
+										<label for="EnvioNroPuerta">Nro de puerta</label>
+									</div>
+									<div class="input-field col s4">
+										<input id="EnvioApto" type="text" class="validate" name="EnvioApto">
+										<label for="EnvioApto">Apartamento</label>
+									</div>
+									<div class="input-field col s4">
+										<input id="EnvioCodigoPostal" type="number" class="validate" name="EnvioCodigoPostal">
+										<label for="EnvioCodigoPostal">Codigo postal</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="input-field col s6">
+										<input id="EnvioCiudad" type="text" class="validate" name="EnvioCiudad">
+										<label for="EnvioCiudad">Ciudad</label>
+									</div>
+									<div class="input-field col s6">
+										<input id="EnvioDepartamento" type="text" class="validate" name="EnvioDepartamento">
+										<label for="EnvioDepartamento">Departamento</label>
+									</div>
+								</div>	
+								<div class="row">
+									<div class="input-field col s6">
+										<input id="EnvioFecha" type="text" class="validate" name="EnvioFecha">
+										<label for="EnvioFecha">Fecha envio</label>
+									</div>
+									<div class="input-field col s6">
+										<input id="EnvioHora" type="text" class="validate" name="EnvioHora">
+										<label for="EnvioHora">Hora de envio</label>
+									</div>
+								</div>	
+								<div class="row">
+									<div class="input-field col s12">
+										<input id="EnvioComentarios" type="text" class="validate" name="EnvioComentarios">
+										<label for="EnvioComentarios">Datos adicionales</label>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button class="btn waves-effect" type="submit" name="action" value="ingresar">Guardar
+									<i class="material-icons right">save</i>
+								</button>
+							</div>
+						</form>
+		</div>
+
+

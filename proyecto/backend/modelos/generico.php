@@ -3,22 +3,23 @@
 
 	class generico{
 
-		/*protected $id;
+		protected $ClienteId;
 
 
-		public function traerId(){
-			return $this->id;
+		public function traerClienteId(){
+			return $this->ClienteId;
 		}
-*/
-		public function extraerDatos($array, $clave){
 
-			if(isset($array[$clave])){
-				return $array[$clave];
+		public function extraerDatos($arrayDatos, $clave){
+
+			if(isset($arrayDatos[$clave])){
+				return $arrayDatos[$clave];
 			}
 			return "";
 		}
 
-		public function inputarCambio($sql, $arrayDatos = array()){
+
+		public function imputarCambio($sql, $arrayDatos = array()){
 
 			include("configuracion/configuracion.php");
 			$conexion = new PDO("mysql:host=".$DBHOST.":".$DBPORT.";dbname=".$DBDATABASE."", $DBUSER, $DBPASSWORD);                                
