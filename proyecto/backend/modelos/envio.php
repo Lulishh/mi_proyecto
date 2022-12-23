@@ -4,8 +4,7 @@ require_once("modelos/generico.php");
 
 
 class envio extends generico {
-
-	protected $EnvioId;   
+  
 	protected $EnvioCodigo;
 	protected $ClienteId;
 	protected $EnvioDestinatario;
@@ -14,7 +13,7 @@ class envio extends generico {
 	protected $EnvioNroPuerta;
     protected $EnvioApto;
 	protected $EnvioCiudad;
-    protected $EnvioDepartamento;
+    protected $DptoId;
 	protected $EnvioTelefono;
     protected $EnvioFecha;
     protected $EnvioHora;
@@ -22,11 +21,6 @@ class envio extends generico {
     protected $EnvioEstadoPaquete;
     protected $EnvioEstado;
 	
-
-    public function traerEnvioId(){
-		return $this->EnvioId;
-	}
-
 	public function traerEnvioCodigo(){
 		return $this->EnvioCodigo;
 	}
@@ -58,12 +52,12 @@ class envio extends generico {
 		return $this->EnvioCiudad;
 	}
 
-	public function traerEnvioDepartamento(){
-		return $this->EnvioDepartamento;
+	public function traerDptoId(){
+		return $this->DptoId;
 	}
 
-	public function traerClienteTelefono(){
-		return $this->ClienteTelefono;
+	public function traerEnvioTelefono(){
+		return $this->EnvioTelefono;
 	}
 
 	public function traerEnvioFecha(){
@@ -90,7 +84,6 @@ class envio extends generico {
 
     public function constructor($arrayDatos = array()){
 		
-		$this->EnvioId 			        = $this->extraerDatos($arrayDatos,'EnvioId');
 		$this->EnvioCodigo 		        = $this->extraerDatos($arrayDatos,'EnvioCodigo');
         $this->ClienteId		        = $this->extraerDatos($arrayDatos,'ClienteId');
 		$this->EnvioDestinatario		= $this->extraerDatos($arrayDatos,'EnvioDestinatario');
@@ -99,7 +92,7 @@ class envio extends generico {
         $this->EnvioNroPuerta 			= $this->extraerDatos($arrayDatos,'EnvioNroPuerta');
 		$this->EnvioApto 		        = $this->extraerDatos($arrayDatos,'EnvioApto');
 		$this->EnvioCiudad		        = $this->extraerDatos($arrayDatos,'EnvioCiudad');
-		$this->EnvioDepartamento        = $this->extraerDatos($arrayDatos,'EnvioDepartamento');
+		$this->DptoId                   = $this->extraerDatos($arrayDatos,'DptoId');
 		$this->EnvioTelefono 	    	= $this->extraerDatos($arrayDatos,'EnvioTelefono');
         $this->EnvioFecha 		        = $this->extraerDatos($arrayDatos,'EnvioFecha');
 		$this->EnvioHora		        = $this->extraerDatos($arrayDatos,'EnvioHora');
@@ -120,7 +113,7 @@ class envio extends generico {
 						EnvioNroPuerta		= :EnvioNroPuerta,
 						EnvioApto 	        = :EnvioApto,
                         EnvioCiudad 	    = :EnvioCiudad,
-						EnvioDepartamento	= :EnvioDepartamento,
+						DptoId	            = :DptoId,
 						EnvioTelefono		= :EnvioTelefono,
                         EnvioFecha 	        = :EnvioFecha,
                         EnvioHora 	        = :EnvioHora,
@@ -137,7 +130,7 @@ class envio extends generico {
 						"EnvioNroPuerta" 		=> $this->EnvioNroPuerta,
 						"EnvioApto" 		    => $this->EnvioApto,
                         "EnvioCiudad" 		    => $this->EnvioCiudad,
-                        "EnvioDepartamento" 	=> $this->EnvioDepartamento,
+                        "DptoId" 	            => $this->DptoId,
 						"EnvioTelefono" 		=> $this->EnvioTelefono,
 						"EnvioFecha" 		    => $this->EnvioFecha,
                         "EnvioHora" 		    => $this->EnvioHora,
@@ -157,22 +150,23 @@ class envio extends generico {
                         EnvioNroPuerta		= :EnvioNroPuerta,
                         EnvioApto 	        = :EnvioApto,
                         EnvioCiudad 	    = :EnvioCiudad,
-                        EnvioDepartamento	= :EnvioDepartamento,
+                        DptoId	            = :DptoId,
                         EnvioTelefono		= :EnvioTelefono,
                         EnvioFecha 	        = :EnvioFecha,
                         EnvioHora 	        = :EnvioHora,
                         EnvioComentarios	= :EnvioComentarios,
                         EnvioEstadoPaquete  = :EnvioEstadoPaquete
-                        WHERE EnvioId = :EnvioId";	
+                        WHERE EnvioCodigo = :EnvioCodigo";
+
         $arraySql = array(
-                        "EnvioId" 		            => $this->EnvioId,   
+                        "EnvioCodigo" 		        => $this->EnvioCodigo,   
                         "EnvioDestinatario" 		=> $this->EnvioDestinatario,
                         "EnvioCodigoPostal" 		=> $this->EnvioCodigoPostal,
                         "EnvioCalle" 		        => $this->EnvioCalle,
                         "EnvioNroPuerta" 		    => $this->EnvioNroPuerta,
                         "EnvioApto" 		        => $this->EnvioApto,
                         "EnvioCiudad" 		        => $this->EnvioCiudad,
-                        "EnvioDepartamento" 		=> $this->EnvioDepartamento,
+                        "DptoId" 		            => $this->DptoId,
                         "EnvioTelefono" 		    => $this->EnvioTelefono,
                         "EnvioFecha" 	           	=> $this->EnvioFecha,
                         "EnvioHora" 		        => $this->EnvioHora,
@@ -187,9 +181,9 @@ class envio extends generico {
         
         public function borrar(){
         
-        $sqlInsert = "UPDATE envio SET EnvioEstado = 0 WHERE EnvioId = :EnvioId";	
+        $sqlInsert = "UPDATE envio SET EnvioEstado = 0 WHERE EnvioCodigo = :EnvioCodigo";	
         $arraySql = array(
-                        "EnvioId" => $this->EnvioId,
+                        "EnvioCodigo" => $this->EnvioCodigo,
                     );
         
         $retorno = $this->imputarCambio($sqlInsert, $arraySql);
@@ -200,7 +194,8 @@ class envio extends generico {
         
         public function listar($arrayFiltros = array()){
         
-            $sql = "SELECT 		EnvioCodigo,
+            $sql = "SELECT 		
+                                EnvioCodigo,
                                 c.ClienteId,
                                 EnvioDestinatario,
                                 EnvioCodigoPostal,
@@ -208,15 +203,17 @@ class envio extends generico {
                                 EnvioNroPuerta,
                                 EnvioApto, 
                                 EnvioCiudad,
-                                EnvioDepartamento, 
+                                dpto.DptoId, 
                                 EnvioTelefono,
                                 EnvioFecha,
                                 EnvioHora, 
                                 EnvioComentarios,
                                 EnvioEstadoPaquete, 
                                 ClienteApellido,
-                                ClienteNombre
+                                ClienteNombre,
+                                DptoNombre
                     FROM envio e
+                    LEFT JOIN departamento dpto ON dpto.DptoId = e.DptoId
                     LEFT JOIN cliente c ON c.ClienteId = e.ClienteId;						
                         WHERE EnvioEstado = 1";
         
@@ -241,7 +238,7 @@ class envio extends generico {
         
         public function totalRegistros($arrayFiltros = array()){
         
-        $sql = "SELECT count(EnvioId) as total FROM envio
+        $sql = "SELECT count(EnvioCodigo) as total FROM envio
                     WHERE EnvioEstado = 1";
                 
         
@@ -263,22 +260,32 @@ class envio extends generico {
         
         }
         
-        public function cargar($EnvioId){
+        public function cargar($EnvioCodigo){
         
         
-        $sql = "SELECT * FROM envio WHERE EnvioId = :EnvioId";
+        $sql = "SELECT * FROM envio WHERE EnvioCodigo = :EnvioCodigo";
         
         $arrayDatos = array();
-        $arrayDatos['EnvioId'] = $EnvioId;
+        $arrayDatos['EnvioCodigo'] = $EnvioCodigo;
         $respuesta = $this->cargarDatos($sql, $arrayDatos);
         
         foreach($respuesta as $envio){
-        
-            $this->EnvioId 			    = $envio['EnvioId'];
-            $this->ClienteApellido		= $envio['ClienteApellido'];
-            $this->ClienteNombre		= $envio['ClienteNombre'];
-            $this->ClienteDocumento		= $envio['ClienteDocumento'];
-            $this->ClienteTelefono 		= $envio['ClienteTelefono'];
+
+            $this->EnvioCodigo 		        = $envio['EnvioCodigo'];
+            $this->ClienteId		        = $envio['ClienteId'];
+            $this->EnvioDestinatario		= $envio['EnvioDestinatario'];
+            $this->EnvioCodigoPostal 	    = $envio['EnvioCodigoPostal'];
+            $this->EnvioCalle 		        = $envio['EnvioCalle'];
+            $this->EnvioNroPuerta 			= $envio['EnvioNroPuerta'];
+            $this->EnvioApto 		        = $envio['EnvioApto'];
+            $this->EnvioCiudad		        = $envio['EnvioCiudad'];
+            $this->DptoId                   = $envio['DptoId'];
+            $this->EnvioTelefono 	    	= $envio['EnvioTelefono'];
+            $this->EnvioFecha 		        = $envio['EnvioFecha'];
+            $this->EnvioHora		        = $envio['EnvioHora'];
+            $this->EnvioComentarios         = $envio['EnvioComentarios'];
+            $this->EnvioEstadoPaquete 	    = $envio['EnvioEstadoPaquete'];
+            $this->EnvioEstado 	    	    = $envio['EnvioEstado'];
         }
         
         }

@@ -1,20 +1,31 @@
 <?php
 	
+
 	$ruta 			= isset($_GET['r'])?$_GET['r']:"";
 	$accion 		= isset($_GET['a'])?$_GET['a']:"";
-	$EnvioId 		= isset($_GET['EnvioId'])?$_GET['EnvioId']:"";
+	$EnvioCodigo 	= isset($_GET['EnvioCodigo'])?$_GET['EnvioCodigo']:"";
 	$pagina 		= isset($_GET['pagina'])?$_GET['pagina']:"1";
 	$busqueda 		= isset($_GET['busqueda'])?$_GET['busqueda']:"";
 
 
-	//print_r("<h1>".$accion."::".$EnvioId."</h1>");
+	//print_r("<h1>".$accion."::".$EnvioCodigo."</h1>");
 
 	require_once("modelos/envio.php");
 	require_once("modelos/cliente.php");
+	require_once("modelos/dptos.php");
 
-	$objEnvio = new envio();
-	$objCliente = new cliente();
+	$objEnvio 		= new envio();
+	$objCliente 	= new cliente();
+	$objDpto		= new departamento();
 
+	if(isset($_POST['action']) && $_POST['action'] == "ingresar"){
+
+		$arrayDatos = $_POST;
+		$objEnvio->constructor($arrayDatos);
+		$respuesta = $objEnvio->ingresar();
+	
+		//print_r($respuesta);
+	}
 	
 	if(isset($_POST['action']) && $_POST['action'] == "editar"){
 	
@@ -34,14 +45,14 @@
 		//print_r($respuesta);
 	}
 	
-	if($accion == "editar" && $EnvioId != ""){
+	if($accion == "editar" && $EnvioCodigo != ""){
 	
-		$objEnvio->cargar($EnvioId);
+		$objEnvio->cargar($EnvioCodigo);
 	
 	}
-	if($accion == "borrar" && $EnvioId != ""){
+	if($accion == "borrar" && $EnvioCodigo != ""){
 	
-		$objEnvio->cargar($EnvioId);
+		$objEnvio->cargar($EnvioCodigo);
 	
 	}
 	
@@ -75,9 +86,10 @@
 	
 	
 	$listaEnvio = $objEnvio->listar($arrayFiltros);
-	
+	$listarCliente = $objCliente->listarCliente();
+	$listarDptoSelect = $objDpto->listarDpto();
 
-	if($accion == "editar" && $EnvioId!= ""){
+	if($accion == "editar" && $EnvioCodigo!= ""){
 ?>
 
 	<div class="row"> 
@@ -101,7 +113,7 @@
 								<label for="EnvioCalle">Direccion</label>
 							</div>
 							<div class="input-field col s4">
-									<input id="EnvioTelefono" type="number" class="validate" name="EnvioTelefono" value="<?=$objEnvio->traerClienteTelefono()?>">
+									<input id="EnvioTelefono" type="number" class="validate" name="EnvioTelefono" value="<?=$objEnvio->traerEnvioTelefono()?>">
 									<label for="EnvioTelefono">Telefono</label>
 							</div>
 						<div class="row">
@@ -123,8 +135,17 @@
 									<label for="EnvioCiudad">Ciudad</label>
 								</div>
 								<div class="input-field col s6">
-									<input id="EnvioDepartamento" type="text" class="validate" name="EnvioDepartamento" value="<?=$objEnvio->traerEnvioDepartamento()?>">
-									<label for="EnvioDepartamento">Departamento</label>
+									<select name="DptoId">
+										<option value="" ></option>
+<?php
+				foreach($listarDptoSelect as $departamento ){
+?>
+										<option value="<?=$departamento['DptoId']?>" <?php if($departamento['DptoId'] == $objEnvio->traerClienteId()){ echo("selected");} ?> >  <?=$departamento['nombreDpto']?> </option>
+<?php
+				}
+?>
+									</select>
+									<label>Departamento</label>
 								</div>
 							</div>	
 							<div class="row">
@@ -143,12 +164,17 @@
 									<label for="EnvioComentarios">Datos adicionales</label>
 								</div>
 								<div class="input-field col s4">
-									<input id="EnvioEstadoPaquete" type="text" class="validate" name="EnvioEstadoPaquete" value="<?=$objEnvio->traerEnvioEstadoPaquete()?>">
-									<label for="EnvioEstadoPaquete">Estado paquete</label>
+									<select name="EnvioEstadoPaquete">
+										<option value="<?=$objEnvio->traerEnvioEstadoPaquete()?>"><?=$objEnvio->traerEnvioEstadoPaquete()?></option>
+										<option value="1">Pendiente</option>
+										<option value="2">En reparto</option>
+										<option value="3">Entregado</option>
+									</select>
+									<label>Estado paquete</label>
 								</div>
 							</div>
 							<div class="row">
-								<input type="hidden" name="EnvioId" value="<?=$objEnvio->traerEnvioId()?>">
+								<input type="hidden" name="EnvioCodigo" value="<?=$objEnvio->traerEnvioCodigo()?>">
 								<button class="btn waves-effect waves-light right" type="submit" name="action" value="editar">Guardar
 									<i class="material-icons right">save</i>
 							</button>
@@ -162,7 +188,7 @@
 	}
 ?>
 <?php
-	if($accion == "borrar" && $EnvioId != ""){
+	if($accion == "borrar" && $EnvioCodigo != ""){
 ?>
 	<div class="row"> 
 		<div class="col s2"></div>
@@ -175,11 +201,11 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<h4>Esta seguro que quiere borrar el envio <?=$objCliente->traerClienteApellido()?> <?=$objCliente->traerClienteNombre()?> </h4>
+								<h4>Esta seguro que quiere borrar el envio  </h4>
 							</div>					
 						</div>			
 						<div class="row">
-							<input type="hidden" name="EnvioId" value="<?=$objEnvio->traerEnvioId()?>">
+							<input type="hidden" name="EnvioCodigo" value="<?=$objEnvio->traerEnvioCodigo()?>">
 							<div class="input-field col s2">
 								<button class="btn waves-effect waves-light" type="submit" name="action" value="cancelar">Cancelar
 									<i class="material-icons right">cancel</i>
@@ -228,11 +254,10 @@
 	  	<table class="highlight striped col s8">
 			<thead >
 				<tr>
-				<th class='green lighten-5' colspan = "7">
+				<th class='green lighten-5' colspan = "8">
 					 <!-- Modal Trigger -->
 					<div class="row">
-						<div class="col s8"></div>
-						<div class="col s4">
+						<div class="col s6 right-aligned">
 							<form action="index.php" method="GET">
 								<div class="input-field">
 									<input type="hidden" name="r" value="<?=$ruta?>">
@@ -248,7 +273,6 @@
 				</th>
 				</tr>
 				<tr class="#80cbc4 teal lighten-3" >
-
 					<th>Codigo</th>
 					<th>Id Cliente</th>
 					<th>Apellido Cliente</th>
@@ -273,7 +297,6 @@
 			foreach($listaEnvio as $Envio){
 ?>
 				<tr>
-
 					<td><?=$Envio['EnvioCodigo']?></td>
 					<td><?=$Envio['ClienteId']?></td>
 					<td><?=$Envio['ClienteApellido']?></td>
@@ -283,7 +306,7 @@
 					<td><?=$Envio['EnvioNroPuerta']?></td>
 					<td><?=$Envio['EnvioApto']?></td>
 					<td><?=$Envio['EnvioCiudad']?></td>
-					<td><?=$Envio['EnvioDepartamento']?></td>
+					<td><?=$Envio['DptoNombre']?></td>
 					<td><?=$Envio['EnvioCodigoPostal']?></td>
 					<td><?=$Envio['EnvioTelefono']?></td>
 					<td><?=$Envio['EnvioFecha']?></td>
@@ -295,9 +318,18 @@
 							<a href="index.php?r=<?=$ruta?>&a=editar&EnvioCodigo=<?=$Envio['EnvioCodigo']?>" class="waves-effect waves-light btn #4db6ac teal lighten-2">
 								<i class="material-icons center">edit</i>
 							</a>
+
+<?php
+		//print_r($_SESSION);
+		if(isset($_SESSION['RolId']) && $_SESSION['RolId'] == 2){
+?>
 							<a href="index.php?r=<?=$ruta?>&a=borrar&EnvioCodigo=<?=$Envio['EnvioCodigo']?>" class="waves-effect waves-light btn #e57373 red lighten-2">
 								<i class="material-icons center">delete</i>
 							</a>
+<?php
+		}
+?>
+					
 						</div>
 					</td>
 				</tr>

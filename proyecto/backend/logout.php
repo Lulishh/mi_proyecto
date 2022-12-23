@@ -2,7 +2,7 @@
 
 	@session_start();
 
-	unset($_SESSION['nombre']);
+	unset($_SESSION['UsuarioUsuario']);
 	
 	session_destroy();
 

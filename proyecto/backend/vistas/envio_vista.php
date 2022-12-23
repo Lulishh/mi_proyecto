@@ -3,8 +3,12 @@
 	$accion 	= isset($_GET['a'])?$_GET['a']:"";
 
 	require_once("modelos/envio.php");
+	require_once("modelos/cliente.php");
+	require_once("modelos/dptos.php");
 
-	$objEnvio = new envio();
+	$objEnvio 		= new envio();
+	$objCliente 	= new cliente();
+	$objDpto		= new departamento();
 
 
 	if(isset($_POST['action']) && $_POST['action'] == "ingresar"){
@@ -15,6 +19,10 @@
 	
 		//print_r($respuesta);
 	}
+
+	$listarClienteSelect = $objCliente->listarCliente();
+	$listarDptoSelect = $objDpto->listarDpto();
+
 ?>	
 
 <?php 
@@ -48,33 +56,44 @@
 							<div class="modal-content">
 								<div class="row">
 									<div class="input-field col s4">
-										<input id="ClienteId" type="number" class="validate" name="ClienteId">
-										<label for="ClienteId">Id cliente</label>
+										<select name="ClienteId">
+											<option value="" disabled selected></option>
+<?php
+				foreach($listarClienteSelect as $cliente ){
+?>
+											<option value="<?=$cliente['ClienteId']?>" <?php if($cliente['ClienteId'] == $objEnvio->traerClienteId()){ echo("selected");} ?> >  <?=$cliente['nombreC']?> </option>
+<?php
+				}
+?>
+										</select>
+										<label>Cliente</label>
 									</div>
 									<div class="input-field col s8">
-										<input id="EnvioCodigo" type="text" class="validate" name="EnvioCodigo">
-										<label for="EnvioCodigo">Codigo de envio</label>
+										<select id="EnvioCodigo" class="validate" name="EnvioCodigo">
+											<option value=""><?= strtoupper(substr(uniqid(), -6)) ?></option>
+										</select>
+										<label for="EnvioCodigo">Codigo envio</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="input-field col s12">
-										<input id="EnvioDestinatario" type="text" class="validate" name="EnvioDestinatario">
+										<input id="EnvioDestinatario" type="text" class="validate" name="EnvioDestinatario" required>
 										<label for="EnvioDestinatario">Nombre destinatario</label>
 									</div>
 								</div>
 								<div class="row">	
 									<div class="input-field col s8">
-										<input id="EnvioCalle" type="text" class="validate" name="EnvioCalle">
+										<input id="EnvioCalle" type="text" class="validate" name="EnvioCalle" required>
 										<label for="EnvioCalle">Direccion</label>
 									</div>
 									<div class="input-field col s4">
-										<input id="EnvioTelefono" type="number" class="validate" name="EnvioTelefono">
+										<input id="EnvioTelefono" type="number" class="validate" name="EnvioTelefono" required>
 										<label for="EnvioTelefono">Telefono</label>
 									</div>
 								</div>	
 								<div class="row">
 									<div class="input-field col s4">
-										<input id="EnvioNroPuerta" type="text" class="validate" name="EnvioNroPuerta">
+										<input id="EnvioNroPuerta" type="text" class="validate" name="EnvioNroPuerta" required>
 										<label for="EnvioNroPuerta">Nro de puerta</label>
 									</div>
 									<div class="input-field col s4">
@@ -92,8 +111,17 @@
 										<label for="EnvioCiudad">Ciudad</label>
 									</div>
 									<div class="input-field col s6">
-										<input id="EnvioDepartamento" type="text" class="validate" name="EnvioDepartamento">
-										<label for="EnvioDepartamento">Departamento</label>
+										<select name="DptoId">
+											<option value="" disabled selected></option>
+<?php
+				foreach($listarDptoSelect as $departamento ){
+?>
+											<option value="<?=$departamento['DptoId']?>" <?php if($departamento['DptoId'] == $objEnvio->traerClienteId()){ echo("selected");} ?> >  <?=$departamento['nombreDpto']?> </option>
+<?php
+				}
+?>
+										</select>
+										<label>Departamento</label>
 									</div>
 								</div>	
 								<div class="row">

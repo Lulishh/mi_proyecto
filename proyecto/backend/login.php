@@ -2,7 +2,7 @@
 
 	require_once("modelos/usuario.php");
 
-	$Usuario = isset($_POST['Usuario'])?$_POST['Usuario']:"";
+	$Usuario = isset($_POST['UsuarioUsuario'])?$_POST['UsuarioUsuario']:"";
 	$UsuarioClave = isset($_POST['UsuarioClave'])?$_POST['UsuarioClave']:"";
 
 	if($Usuario != "" && $UsuarioClave != "" && isset($_POST['action']) && $_POST['action'] == "login"){
@@ -32,11 +32,8 @@
 
 	<body>
 		<nav>
-			<div class="nav-wrapper teal darken-4">
-				<a href="#!" class="brand-logo center ">
-					<i class="material-icons">cloud</i>
-					<span class="yellow-text text-darken-2">M</span>i<span class="red-text text-darken-2">P</span>anel
-				</a>
+			<div class="nav-wrapper #004d40 teal darken-4">
+				<a href="#!" class="brand-logo center">Logo</a>
 			</div>
 		</nav>
 	
@@ -76,11 +73,6 @@
 							<i class="material-icons right">send</i>
 						</button>
 					</div>
-					<div class="row">					
-						<h2><?= strtoupper(substr(uniqid(), -6)) ?></h2>
-
-					</div>
-					
 				</form>
 			</div>
 
@@ -99,4 +91,4 @@
   </html>
 
 
-  select md5("clave");
+  

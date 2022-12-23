@@ -1,12 +1,12 @@
 <?php
 
-	/*@session_start();
+	@session_start();
 
-	if(!isset($_SESSION['nombre'])){
+	if(!isset($_SESSION['UsuarioUsuario'])){
 
 		header('Location: login.php');
 
-	}*/
+	}
 
 ?>
 
@@ -39,6 +39,7 @@
 			<li class="divider"></li>
 			<li><a href="index.php?r=tracking">Tracking</a></li>
 		</ul>
+
 		<nav>
 			<div class="nav-wrapper #004d40 teal darken-4">
 				<ul class="left hide-on-med-and-down">  
@@ -47,13 +48,41 @@
 				</ul>
 				<a href="#!" class="brand-logo center">Logo</a>
 				<ul class="right hide-on-med-and-down"> 
-					<li><a>Nombre usuario</a><li> <!-- quiero que parezca el nombre del usuario-->
-					<li><a href="badges.html">Logout</a><li>
+					<li><a><?=$_SESSION['UsuarioUsuario']?></a><li> 
+				<ul class="right hide-on-med-and-down">
+					<li>
+						<a class='dropdown-trigger btn' href='#' data-target='dropdown2'>
+							<i class="material-icons">person</i>
+						</a>
+					</li>
+				</ul>		
+				<ul id="dropdown2" class="dropdown-content">
+					<li>
+						<a class="modal-trigger" href="#modalSalir">Salir</a>
+					</li>
+					<li class="divider" tabindex="-1"></li>
+					<li>
+						<a href="#!">Cancelar</a>
+					</li>
+				</ul>	
+
 				</ul>    
 			</div>
 		</nav>
+	
+				  <!-- Modal Structure -->
+				  <div id="modalSalir" class="modal">
+						<div class="modal-content">
+							<h4>Estas seguro de salir?</h4>
+							</div>
+							<div class="modal-footer">
+							<a href="logout.php" class="modal-close waves-effect waves-green btn-flat">Aceptar</a>
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+						</div>
+					</div>	
 
-		
+
+
 <?php
 		include("rutas.php");
 ?>       

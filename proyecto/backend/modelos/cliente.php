@@ -168,5 +168,18 @@ class cliente extends generico {
 
 	}
 
+	public function listarCliente(){
+	
+		$sql = 'SELECT 
+					ClienteId,	
+					CONCAT(ClienteApellido, " ",ClienteNombre, " - ",ClienteDocumento) AS nombreC
+					FROM cliente c
+					WHERE ClienteEstado = 1';		
+		$arraySql = array();
+		$retorno = $this->cargarDatos($sql, $arraySql);
+		return $retorno;
+
+	}
+
 }
 ?>
